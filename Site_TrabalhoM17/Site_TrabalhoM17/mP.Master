@@ -1,0 +1,85 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="mP.master.cs" Inherits="Site_TrabalhoM17.mP" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <link href="css/searchbar.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container">
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.aspx">A-FNAC-A-GAME</a>
+                </div>
+                <!-- Top Menu Items -->
+
+                <ul class="nav navbar-nav">
+                    <% if (Session["perfil"] != null && Session["perfil"].Equals("0"))
+                        { %>
+                    <li><a href="areaadmin.aspx">Área do Admin</a></li>
+                    <% } %>
+                    <% if (Session["perfil"] != null && Session["perfil"].Equals("1"))
+                        { %>
+                    <li><a href="areacliente.aspx">Área do Cliente</a></li>
+                    <%} %>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-right: 1%">
+                    <% if (Session["perfil"] == null)
+                        { %>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Login</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="registo.aspx">Registar</a></li>
+                            <li><a href="login.aspx">Login</a></li>
+                        </ul>
+                    </li>
+                    <%}
+                        else
+                        { %>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><% Response.Write(Session["nome"]); %></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="logout.aspx">Terminar Sessão</a></li>
+                        </ul>
+                    </li>
+                    <%} %>
+                </ul>
+                <ul>
+                    <li>
+                        <div class="nav navbar-nav navbar-right" style="margin-right: 1%; margin-top: 5px">
+                            <asp:TextBox runat="server" ID="tbPesquisa" type="search" OnTextChanged="tbPesquisa_TextChanged" />
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+            <!--Aviso-->
+            <div runat="server" id="div_aviso">
+                <nav class="navbar navbar-inverse navbar-fixed-bottom text-info">
+                    <p>Nós usamos cookies para melhorar a sua experience no nosso website</p>
+                    <asp:Button ID="Button1" runat="server" Text="Aceitar" CssClass="btn btn-info top-left" OnClick="Button1_Click" />
+                </nav>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
